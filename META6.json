@@ -1,11 +1,26 @@
 {
-    "name": "Pod::To::Man",
-    "version" : "0.1.0",
-    "description": "Render Perl6 Pod as Roff for man(1)",
-    "author": "Mike Clarke <clarkema@clarkema.org>",
-    "license": "Artistic-2.0",
-    "depends": [],
-    "provides": {
-        "Pod::To::Man": "lib/Pod/To/Man.pm6"
-    }
+  "auth": "zef:raku-community-modules",
+  "authors": [
+    "Mike Clarke",
+    "Vadim Belman"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "Render Raku POD as Roff for C<man(1)>",
+  "license": "Artistic-2.0",
+  "name": "Pod::To::Man",
+  "perl": "6.d",
+  "provides": {
+    "Pod::To::Man": "lib/Pod/To/Man.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "https://github.com/raku-community-modules/Pod-To-Man.git",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
 }

@@ -1,33 +1,41 @@
-# Pod::To::Man
+[![Actions Status](https://github.com/raku-community-modules/Pod-To-Man/actions/workflows/test.yml/badge.svg)](https://github.com/raku-community-modules/Pod-To-Man/actions)
 
-Render Perl 6 Pod as Roff for `man(1)`, so your scripts can have proper
-manpages.
+NAME
+====
 
-## Install
+Pod::To::Man - Render Raku POD as Roff for `man(1)`
 
-```
-zef install Pod::To::Man
-```
-
-## Sysopsis
+SYNOPSIS
+========
 
 From the command line:
 
+    raku --doc=Man your.rakudoc > your.1
+
+```raku
+use Pod::To::Man;
+
+say Pod::To::Man::render(slurp("your.rakudoc"));
 ```
-perl6 --doc=Man your_script > your_script.1
-```
 
-## Limitations
+RESOURCES
+=========
 
-This is a very early work in progress, and the Roff is not ideal.  Certain
-features such as nested lists haven't received much attention yet.  On the
-other hand, it's already useful enough to produce much nicer documentation
-for some of my scripts than the plain text formatter.
+  * [http://www.openbsd.org/papers/eurobsdcon2014-mandoc-slides.pdf](http://www.openbsd.org/papers/eurobsdcon2014-mandoc-slides.pdf)
 
-Issues / patches / pull requests / Roff formatting suggestions are
-all extremely welcome.
+  * [http://mandoc.bsd.lv/man/man.7.html](http://mandoc.bsd.lv/man/man.7.html)
 
-## Resources
+AUTHORS
+=======
 
-* http://www.openbsd.org/papers/eurobsdcon2014-mandoc-slides.pdf
-* http://mandoc.bsd.lv/man/man.7.html
+  * Mike Clarke <clarkema@clarkema.org>
+
+  * Vadim Belman <vrurg@lflat.org>
+
+COPYRIGHT AND LICENSE
+=====================
+
+Copyright 2019-2022 Mike Clarke
+
+This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+
