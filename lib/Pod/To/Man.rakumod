@@ -30,7 +30,7 @@ say Pod::To::Man::render(slurp("your.rakudoc"));
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2019-2022 Mike Clarke
+Copyright © 2019-2022 Mike Clarke, © 2022 - Raku Community Authors
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
@@ -58,7 +58,7 @@ multi method pod-node(Positional:D \pod) {
     # A list of nodes creates a new context.
     my @out;
     self.para-ctx: {
-        for pod -> $node {
+        for pod<> -> $node {
             my $pfx = "";
             if $node ~~ Pod::Block::Para {
                 $pfx = $*POD2MAN-PFX;
