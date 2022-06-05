@@ -1,0 +1,77 @@
+use Test;
+use Pod::To::Man;
+use Pod::To::HTML;
+
+plan 9;
+
+=begin pod
+=head1 NAME
+
+Test
+
+=head1 SYNOPSIS
+
+Example:
+
+    ... code is here
+=end pod
+
+=begin pod
+
+Entering text.
+
+=item1 Level 1.1
+=item2 Level 2.1
+=item2 Level 2.2
+
+=item1 Level 1.2
+
+=begin item1
+Big item
+
+with few paragraphs
+
+=begin item
+A nested item
+
+with paragraphs
+
+=item A
+=item B
+=end item
+=item Nested single line
+
+One more para
+=end item1
+
+=begin defn
+Term
+definition
+
+text
+=end defn
+
+=end pod
+
+my $roff;
+
+lives-ok {
+    $roff = Pod::To::Man.render($=pod[0]);
+}, "first pod renders ok";
+
+ok $roff.contains('.TH 01-basic.rakutest'), "has the header";
+ok $roff.contains("\n.SH NAME"), "NAME heading";
+like $roff, /Test .* \.SH \s SYNOPSIS .* Example\: .*/, "no text lost";
+like $roff, /\.EX .* code \s is \s here/, "code is rendered";
+
+lives-ok {
+    $roff = Pod::To::Man.render($=pod[1]);
+}, "second pod renders ok";
+
+say $roff;
+
+like $roff, /^^ 'Entering text\\&.' .* 'Level 1\\&.1' .* 'Level 2\\&.1' .* 'Big item' .* 'A nested item' .* 'definition'/, "all expected text is in place";
+like $roff, /'Level 1\\&.1'\n \.RS .* 'Level 2\\&.1' .* \.RE/, "level items are rendered with indentation";
+like $roff, /'Big item' \n \.IP \n 'with few paragraphs' \n \.IP \n \.RS .* \.IP .* 'A nested item' \n \.IP \n 'with paragraphs'/, 'nested multiparagraph items';
+
+done-testing;
