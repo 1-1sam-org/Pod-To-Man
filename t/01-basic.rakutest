@@ -1,6 +1,5 @@
 use Test;
 use Pod::To::Man;
-use Pod::To::HTML;
 
 plan 9;
 
