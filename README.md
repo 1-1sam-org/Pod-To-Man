@@ -15,7 +15,7 @@ From the command line:
 ```raku
 use Pod::To::Man;
 
-say Pod::To::Man::render(slurp("your.rakudoc"));
+say Pod::To::Man.render(slurp("your.rakudoc"));
 ```
 
 RESOURCES
@@ -35,7 +35,7 @@ AUTHORS
 COPYRIGHT AND LICENSE
 =====================
 
-Copyright 2019-2022 Mike Clarke
+Copyright © 2019-2022 Mike Clarke, © 2022 - Raku Community Authors
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

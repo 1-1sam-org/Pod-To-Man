@@ -1,4 +1,7 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
-    - Initial version
+    - Make Pod::To::Man a community module
+    - Tidify rendering
+    - Implemented nested lists
+
