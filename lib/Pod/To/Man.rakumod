@@ -15,7 +15,7 @@ From the command line:
 =begin code :lang<raku>
 use Pod::To::Man;
 
-say Pod::To::Man::render(slurp("your.rakudoc"));
+say Pod::To::Man.render(slurp("your.rakudoc"));
 =end code
 
 =head1 RESOURCES
