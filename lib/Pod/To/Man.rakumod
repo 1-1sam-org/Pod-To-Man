@@ -88,7 +88,7 @@ multi method pod-node(Pod::Block::Named:D $pod) {
 }
 multi method pod-node(Pod::Block::Code:D $pod) {
     pfx ".P\n";
-    qq{\n.RS 4\n.EX\n}
+    qq{\n.RS 4m\n.EX\n}
         ~ $pod.contents.map({ self.pod-node($_) }).join
         ~ "\n.EE\n.RE"
 }
