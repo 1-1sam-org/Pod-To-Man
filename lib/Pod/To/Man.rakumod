@@ -47,9 +47,13 @@ sub head2man($heading) {
 
 sub pfx(Str:D $s) { $*POD2MAN-PFX = $s }
 
-method para-ctx(&code) {
+method para-ctx(&code, Int:D :$shift = 0, Int:D :$nest = 0) {
     my $*POD2MAN-PFX = "";
-    &code()
+    my $rs = $shift + $*POD2MAN-NESTING;
+    do {
+        temp $*POD2MAN-NESTING = $nest;
+        (".RS 2n\n" x $rs) ~ &code() ~ ("\n.RE" x $rs)
+    }
 }
 
 proto method pod-node(|) {*}
@@ -66,8 +70,8 @@ multi method pod-node(Positional:D \pod) {
             }
             @out.push: $pfx ~ self.pod-node($node)
         }
+        @out.join("\n")
     }
-    @out.join("\n")
 }
 
 multi method pod-node(Pod::Heading:D $pod) {
@@ -103,8 +107,8 @@ multi method pod-node(Pod::Defn $pod) {
 
 multi method pod-node(Pod::Item $pod) {
     pfx "\n";
-    self.para-ctx: {
-        ".IP \\(bu 3m\n" ~ $pod.contents.map({ self.pod-node($_) }).join("\n.IP\n").chomp
+    self.para-ctx: :shift($pod.level - 1), :nest(1), {
+        ".IP \\(bu 2m\n" ~ $pod.contents.map({ self.pod-node($_) }).join("\n.IP\n").chomp
     }
 }
 multi method pod-node(Pod::FormattingCode $pod) {
@@ -131,6 +135,7 @@ multi method pod-node(Any $pod) {
 }
 
 method pod2man($pod) {
+    my $*POD2MAN-NESTING = 0;
     qq«.pc\n.TH {$*PROGRAM.basename} 1 {Date.today}\n»
         ~ self.para-ctx: { self.pod-node($pod) }
 }
