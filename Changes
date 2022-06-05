@@ -1,6 +1,8 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+
+0.2.0  2022-06-04T23:18:28-04:00
     - Make Pod::To::Man a community module
     - Tidify rendering
     - Implemented nested lists
