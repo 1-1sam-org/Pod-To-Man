@@ -1,7 +1,7 @@
 use Test;
 use Pod::To::Man;
 
-plan 9;
+plan 11;
 
 =begin pod
 =head1 NAME
@@ -72,5 +72,11 @@ say $roff;
 like $roff, /^^ 'Entering text\\&.' .* 'Level 1\\&.1' .* 'Level 2\\&.1' .* 'Big item' .* 'A nested item' .* 'definition'/, "all expected text is in place";
 like $roff, /'Level 1\\&.1'\n \.RS .* 'Level 2\\&.1' .* \.RE/, "level items are rendered with indentation";
 like $roff, /'Big item' \n \.IP \n 'with few paragraphs' \n \.IP \n \.RS .* \.IP .* 'A nested item' \n \.IP \n 'with paragraphs'/, 'nested multiparagraph items';
+
+lives-ok {
+    $roff = Pod::To::Man.render($=pod[0], :program('program'));
+}, "pod renders with custom program ok";
+
+ok $roff.contains('.TH program'), "has the header with custom program";
 
 done-testing;

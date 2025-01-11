@@ -134,9 +134,9 @@ multi method pod-node(Any $pod) {
     die "Unknown POD element of type '" ~ $pod.^name ~ "': " ~ $pod.raku
 }
 
-method pod2man($pod) {
+method pod2man($pod, Str:D :$program = $*PROGRAM.basename) {
     my $*POD2MAN-NESTING = 0;
-    qq«.pc\n.TH {$*PROGRAM.basename} 1 {Date.today}\n»
+    qq«.pc\n.TH $program 1 {Date.today}\n»
         ~ self.para-ctx: { self.pod-node($pod) }
 }
 
@@ -144,6 +144,6 @@ method pod2roff($pod) {
     self.para-ctx: { self.pod-node($pod) }
 }
 
-method render($pod) {
-    self.pod2man($pod);
+method render($pod, Str:D :$program = $*PROGRAM.basename) {
+    self.pod2man($pod, :program($program));
 }
