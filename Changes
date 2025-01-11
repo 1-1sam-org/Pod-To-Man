@@ -1,6 +1,8 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+
+0.2.1  2025-01-11T17:57:48+01:00
     - Add :program argument to pod2man, Samuel Young++
     - Add CI badge for each OS
 
