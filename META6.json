@@ -19,6 +19,9 @@
   ],
   "source-url": "https://github.com/raku-community-modules/Pod-To-Man.git",
   "tags": [
+    "RAKUDOC",
+    "POD",
+    "MAN"
   ],
   "test-depends": [
   ],

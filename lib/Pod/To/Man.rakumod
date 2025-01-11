@@ -1,41 +1,5 @@
 unit class Pod::To::Man;
 
-=begin pod
-
-=head1 NAME
-
-Pod::To::Man - Render Raku POD as Roff for C<man(1)>
-
-=head1 SYNOPSIS
-
-From the command line:
-
-    raku --doc=Man your.rakudoc > your.1
-
-=begin code :lang<raku>
-use Pod::To::Man;
-
-say Pod::To::Man.render(slurp("your.rakudoc"));
-=end code
-
-=head1 RESOURCES
-
-=item L<http://www.openbsd.org/papers/eurobsdcon2014-mandoc-slides.pdf>
-=item L<http://mandoc.bsd.lv/man/man.7.html>
-
-=head1 AUTHORS
-
-=item Mike Clarke <clarkema@clarkema.org>
-=item Vadim Belman <vrurg@lflat.org>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright © 2019-2022 Mike Clarke, © 2022 - Raku Community Authors
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
-
 sub escape(Str:D $s) {
     $s.subst(:g, /\-/, Q'\-')
         .subst(:g, '.', Q'\&.');
@@ -147,3 +111,5 @@ method pod2roff($pod) {
 method render($pod, Str:D :$program = $*PROGRAM.basename) {
     self.pod2man($pod, :program($program));
 }
+
+# vim: expandtab shiftwidth=4

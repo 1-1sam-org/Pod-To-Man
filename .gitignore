@@ -2,3 +2,4 @@
 /Pod-To-Man-*
 .idea/
 *.iml
+*.rakucov

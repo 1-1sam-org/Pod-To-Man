@@ -1,6 +1,8 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+    - Add :program argument to pod2man, Samuel Young++
+    - Add CI badge for each OS
 
 0.2.0  2022-06-04T23:18:28-04:00
     - Make Pod::To::Man a community module
