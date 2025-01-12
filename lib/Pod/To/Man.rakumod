@@ -1,5 +1,56 @@
 unit class Pod::To::Man;
 
+multi sub extract-pod-text(Str:D $pod) {
+    $pod
+}
+
+multi sub extract-pod-text(Pod::Block:D $pod) {
+    [~] $pod.contents.map(&extract-pod-text);
+}
+
+sub get-pod-name($pod) {
+
+    # First look for '=NAME' block.
+    for $pod<> -> $node {
+
+        for $node.contents -> $cont {
+
+            next unless $cont ~~ Pod::Block::Named;
+            next unless $cont.name eq 'NAME';
+
+            return extract-pod-text($cont).subst(/\s+/, '-', :g);
+
+        }
+
+    }
+
+    # If there's no '=NAME' block, look for a paragraph block preceded by a
+    # '=HEAD1 NAME' heading.
+    for $pod<> -> $node {
+
+        for $node.contents.kv -> $k, $cont {
+
+            next unless $cont ~~ Pod::Heading;
+            next unless $cont.level eq '1';
+            next unless extract-pod-text($cont) eq 'NAME';
+            next if     $k == $node.contents.end;
+
+            my $name-node = $node.contents[$k + 1];
+
+            my $title-str = extract-pod-text($name-node);
+
+            $title-str ~~ / ^ \s* (.*?) \s* [\s+ '-' \s+ .*]? $ /;
+
+            return ~$0.subst(/\s+/, '-', :g);
+
+        }
+
+    }
+
+    return Any;
+
+}
+
 sub escape(Str:D $s) {
     $s.subst(:g, /\-/, Q'\-')
         .subst(:g, '.', Q'\&.');
@@ -98,7 +149,7 @@ multi method pod-node(Any $pod) {
     die "Unknown POD element of type '" ~ $pod.^name ~ "': " ~ $pod.raku
 }
 
-method pod2man($pod, Str:D :$program = $*PROGRAM.basename) {
+method pod2man($pod, Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename) {
     my $*POD2MAN-NESTING = 0;
     qq«.pc\n.TH $program 1 {Date.today}\n»
         ~ self.para-ctx: { self.pod-node($pod) }
@@ -108,7 +159,7 @@ method pod2roff($pod) {
     self.para-ctx: { self.pod-node($pod) }
 }
 
-method render($pod, Str:D :$program = $*PROGRAM.basename) {
+method render($pod, Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename) {
     self.pod2man($pod, :program($program));
 }
 

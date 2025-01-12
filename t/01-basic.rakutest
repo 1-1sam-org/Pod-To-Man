@@ -1,12 +1,12 @@
 use Test;
 use Pod::To::Man;
 
-plan 11;
+plan 13;
 
 =begin pod
 =head1 NAME
 
-Test
+Test - Some test pod
 
 =head1 SYNOPSIS
 
@@ -52,13 +52,23 @@ text
 
 =end pod
 
+=begin pod
+
+=NAME Test
+
+=HEAD1 SYNOPSIS
+
+  yada yada...
+
+=end pod
+
 my $roff;
 
 lives-ok {
     $roff = Pod::To::Man.render($=pod[0]);
 }, "first pod renders ok";
 
-ok $roff.contains('.TH 01-basic.rakutest'), "has the header";
+ok $roff.contains('.TH Test'), "has the header";
 ok $roff.contains("\n.SH NAME"), "NAME heading";
 like $roff, /Test .* \.SH \s SYNOPSIS .* Example\: .*/, "no text lost";
 like $roff, /\.EX .* code \s is \s here/, "code is rendered";
@@ -78,5 +88,11 @@ lives-ok {
 }, "pod renders with custom program ok";
 
 ok $roff.contains('.TH program'), "has the header with custom program";
+
+lives-ok {
+    $roff = Pod::To::Man.render($=pod[2])
+}, "third pod renders ok";
+
+ok $roff.contains('.TH Test'), "has the header specified by =NAME";
 
 done-testing;
