@@ -1,9 +1,16 @@
 use Test;
 use Pod::To::Man;
 
-plan 13;
+plan 14;
 
 =begin pod
+
+=begin comment
+Comments
+shouldn't
+render
+=end comment
+
 =head1 NAME
 
 Test - Some test pod
@@ -72,6 +79,7 @@ ok $roff.contains('.TH Test'), "has the header";
 ok $roff.contains("\n.SH NAME"), "NAME heading";
 like $roff, /Test .* \.SH \s SYNOPSIS .* Example\: .*/, "no text lost";
 like $roff, /\.EX .* code \s is \s here/, "code is rendered";
+unlike $roff, /Comments .* shouldn\'t .* render/, "comments are not rendered";
 
 lives-ok {
     $roff = Pod::To::Man.render($=pod[1]);

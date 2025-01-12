@@ -141,6 +141,11 @@ multi method pod-node(Pod::FormattingCode $pod) {
     }
 
 }
+
+multi method pod-node(Pod::Block::Comment:D $pod) {
+    Empty;
+}
+
 multi method pod-node(Str:D $pod) {
     escape($pod);
 }
