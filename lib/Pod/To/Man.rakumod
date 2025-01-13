@@ -51,6 +51,43 @@ sub get-pod-name($pod) {
 
 }
 
+sub pad-str(Str:D $str, Int:D $len) {
+    $str ~ (' ' x ($len - $str.chars));
+}
+
+sub table2text(Pod::Block::Table:D $pod) {
+
+    my $table;
+
+    my @rows = $pod.contents;
+    @rows.push: $pod.headers if +$pod.headers;
+
+    my @cell-lengths = gather for @rows[0].keys -> $i {
+        take max @rows>>[$i]>>.chars;
+    }
+
+    if $pod.config<caption> {
+        $table ~= $pod.config<caption> ~ "\n";
+    }
+
+    if +$pod.headers {
+        $table ~= join(' | ', gather for $pod.headers.kv -> $k, $v {
+            take pad-str($v, @cell-lengths[$k]);
+        }) ~ "\n";
+        $table ~= "{'=' x (([+] @cell-lengths) + (+$pod.headers - 1) * 3)}\n";
+    }
+
+    for $pod.contents -> $row {
+        $table ~= join(' | ', gather for $row.kv -> $k, $v {
+            take pad-str($v, @cell-lengths[$k]);
+        }) ~ "\n";
+    }
+
+    return $table;
+
+}
+
+
 sub escape(Str:D $s) {
     $s.subst(:g, /\-/, Q'\-')
         .subst(:g, '.', Q'\&.');
@@ -126,6 +163,20 @@ multi method pod-node(Pod::Item $pod) {
         ".IP \\(bu 2m\n" ~ $pod.contents.map({ self.pod-node($_) }).join("\n.IP\n").chomp
     }
 }
+
+# Generate a text version of the given pod table, then stuff it into a code
+# block. When I was writing this, I did not realize man roff had macros for
+# doing tables as apparently it's in tbl(1) instead of man(7).
+# TODO: Use man table macros instead.
+multi method pod-node(Pod::Block::Table:D $pod) {
+
+    my $table = table2text($pod);
+
+    self.pod-node(Pod::Block::Code.new(:contents($table)));
+
+}
+
+
 multi method pod-node(Pod::FormattingCode $pod) {
     return '' if $pod.type eq 'Z';
     my $text = $pod.contents.map({ self.pod-node($_) }).join;
