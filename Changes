@@ -1,6 +1,10 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+	- Move maintenance from raku-community-modules to Samuel Young.
+	- Add :section argument to render/pod2man.
+	- Add support for Pod comments.
+	- Add support for Pod tables.
 
 0.2.1  2025-01-11T17:57:48+01:00
     - Add :program argument to pod2man, Samuel Young++
