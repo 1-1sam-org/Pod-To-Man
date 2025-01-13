@@ -3,7 +3,7 @@
 NAME
 ====
 
-Pod::To::Man - Render Raku POD as Roff for `man(1)`
+Pod::To::Man - Render Raku POD as Roff for man
 
 SYNOPSIS
 ========
@@ -15,7 +15,7 @@ From the command line:
 ```raku
 use Pod::To::Man;
 
-say Pod::To::Man.render(slurp("your.rakudoc"));
+say Pod::To::Man.render($=pod);
 ```
 
 RESOURCES
@@ -32,12 +32,16 @@ AUTHORS
 
   * Vadim Belman <vrurg@lflat.org>
 
+  * Samuel Young <samyoung12788@gmail.com>
+
 COPYRIGHT AND LICENSE
 =====================
 
 Copyright © 2019-2022 Mike Clarke
 
 Copyright © 2022, 2025 Raku Community
+
+Copyright © 2025 Samuel Young
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
