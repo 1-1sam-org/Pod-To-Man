@@ -205,9 +205,13 @@ multi method pod-node(Any $pod) {
     die "Unknown POD element of type '" ~ $pod.^name ~ "': " ~ $pod.raku
 }
 
-method pod2man($pod, Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename) {
+method pod2man(
+    $pod,
+    Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename,
+    Str:D :$section = '1',
+) {
     my $*POD2MAN-NESTING = 0;
-    qq«.pc\n.TH $program 1 {Date.today}\n»
+    qq«.pc\n.TH $program $section {Date.today}\n»
         ~ self.para-ctx: { self.pod-node($pod) }
 }
 
@@ -215,8 +219,12 @@ method pod2roff($pod) {
     self.para-ctx: { self.pod-node($pod) }
 }
 
-method render($pod, Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename) {
-    self.pod2man($pod, :program($program));
+method render(
+    $pod,
+    Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename,
+    Str:D :$section = '1',
+) {
+    self.pod2man($pod, :program($program), :section($section));
 }
 
 # vim: expandtab shiftwidth=4
