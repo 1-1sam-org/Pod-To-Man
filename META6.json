@@ -2,13 +2,14 @@
   "auth": "zef:raku-community-modules",
   "authors": [
     "Mike Clarke",
-    "Vadim Belman"
+    "Vadim Belman",
+    "Samuel Young"
   ],
   "build-depends": [
   ],
   "depends": [
   ],
-  "description": "Render Raku POD as Roff for C<man(1)>",
+  "description": "Render Raku POD as Roff for man",
   "license": "Artistic-2.0",
   "name": "Pod::To::Man",
   "perl": "6.d",
@@ -17,11 +18,11 @@
   },
   "resources": [
   ],
-  "source-url": "https://github.com/raku-community-modules/Pod-To-Man.git",
+  "source-url": "https://github.com/1-1sam-org/Pod-To-Man.git",
   "tags": [
-    "RAKUDOC",
-    "POD",
-    "MAN"
+    "rakudoc",
+    "pod",
+    "man"
   ],
   "test-depends": [
   ],
