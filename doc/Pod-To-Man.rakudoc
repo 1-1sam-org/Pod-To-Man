@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-Pod::To::Man - Render Raku POD as Roff for C<man(1)>
+Pod::To::Man - Render Raku POD as Roff for man
 
 =head1 SYNOPSIS
 
@@ -18,7 +18,7 @@ raku --doc=Man your.rakudoc > your.1
 
 use Pod::To::Man;
 
-say Pod::To::Man.render(slurp("your.rakudoc"));
+say Pod::To::Man.render($=pod);
 
 =end code
 
@@ -31,12 +31,15 @@ say Pod::To::Man.render(slurp("your.rakudoc"));
 
 =item Mike Clarke <clarkema@clarkema.org>
 =item Vadim Belman <vrurg@lflat.org>
+=item Samuel Young <samyoung12788@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
 Copyright © 2019-2022 Mike Clarke
 
 Copyright © 2022, 2025 Raku Community
+
+Copyright © 2025 Samuel Young
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
