@@ -1,7 +1,7 @@
 use Test;
 use Pod::To::Man;
 
-plan 18;
+plan 20;
 
 =begin pod
 
@@ -123,12 +123,16 @@ lives-ok {
         :program('program'),
         :section('1337'),
         :date('2015-11-24'.Date),
+        :version('13.37'),
+        :center('SomeTestDocumentation')
     );
 }, "pod renders with custom options ok";
 
 ok $roff.contains('.TH program'), "has the header with custom program";
-ok $roff.contains('.TH program 1337'), "has the header with custom section";
-ok $roff.contains('1337 2015-11-24'), "has the header with custom date";
+ok $roff.contains('program 1337'), "has the header with custom section";
+ok $roff.contains('1337 "2015-11-24"'), "has the header with custom date";
+ok $roff.contains('"2015-11-24" "13.37"'), "has the header with custom version";
+ok $roff.contains('"13.37" "SomeTestDocumentation"'), "has the header with custom center";
 
 lives-ok {
     $roff = Pod::To::Man.render($=pod[2])
