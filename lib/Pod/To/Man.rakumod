@@ -207,11 +207,12 @@ multi method pod-node(Any $pod) {
 
 method pod2man(
     $pod,
-    Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename,
-    Str:D :$section = '1',
+    Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
+    Str:D  :$section = '1',
+    Date:D :$date = now.Date,
 ) {
     my $*POD2MAN-NESTING = 0;
-    qq«.pc\n.TH $program $section {Date.today}\n»
+    qq«.pc\n.TH $program $section $date\n»
         ~ self.para-ctx: { self.pod-node($pod) }
 }
 
@@ -221,10 +222,16 @@ method pod2roff($pod) {
 
 method render(
     $pod,
-    Str:D :$program = get-pod-name($pod) // $*PROGRAM.basename,
-    Str:D :$section = '1',
+    Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
+    Str:D  :$section = '1',
+    Date:D :$date = now.Date,
 ) {
-    self.pod2man($pod, :program($program), :section($section));
+    self.pod2man(
+        $pod,
+        :program($program),
+        :section($section),
+        :date($date),
+    );
 }
 
 # vim: expandtab shiftwidth=4
