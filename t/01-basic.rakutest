@@ -1,7 +1,7 @@
 use Test;
 use Pod::To::Man;
 
-plan 17;
+plan 18;
 
 =begin pod
 
@@ -118,11 +118,17 @@ term++        | postfix
 HERE
 
 lives-ok {
-    $roff = Pod::To::Man.render($=pod[0], :program('program'), :section('1337'));
+    $roff = Pod::To::Man.render(
+        $=pod[0],
+        :program('program'),
+        :section('1337'),
+        :date('2015-11-24'.Date),
+    );
 }, "pod renders with custom options ok";
 
 ok $roff.contains('.TH program'), "has the header with custom program";
 ok $roff.contains('.TH program 1337'), "has the header with custom section";
+ok $roff.contains('1337 2015-11-24'), "has the header with custom date";
 
 lives-ok {
     $roff = Pod::To::Man.render($=pod[2])
