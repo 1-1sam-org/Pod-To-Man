@@ -118,7 +118,7 @@ term++        | postfix
 HERE
 
 lives-ok {
-    $roff = Pod::To::Man.render(
+    $roff = Pod::To::Man.pod2man(
         $=pod[0],
         :program('program'),
         :section('1337'),

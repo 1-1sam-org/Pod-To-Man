@@ -231,24 +231,8 @@ method pod2roff($pod) {
     self.para-ctx: { self.pod-node($pod) }
 }
 
-method render(
-    $pod,
-    Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
-    Str:D  :$section = '1',
-    Date:D :$date = now.Date,
-    Str:D  :$version = $*RAKU.compiler.gist,
-    Str:D  :$center = "User Contributed Raku documentation",
-    Bool:D :$urls = True,
-) {
-    self.pod2man(
-        $pod,
-        :program($program),
-        :section($section),
-        :date($date),
-        :version($version),
-        :center($center),
-        :urls($urls),
-    );
+method render($pod) {
+    self.pod2man($pod);
 }
 
 # vim: expandtab shiftwidth=4
