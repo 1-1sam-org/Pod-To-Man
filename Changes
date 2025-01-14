@@ -4,6 +4,7 @@ Revision history for Pod-To-Man
     - Add :date parameter to render/pod2man.
     - Add :version parameter to render/pod2man.
     - Add :center parameter to render/pod2man.
+    - Add :urls parameter to render/pod2man.
     - Generated roff now has a leading comment mentioning generation by
       Pod::To::Man.
 
