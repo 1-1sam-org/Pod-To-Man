@@ -2,6 +2,8 @@ Revision history for Pod-To-Man
 
 {{$NEXT}}
     - Add :date parameter to render/pod2man.
+    - Add :version parameter to render/pod2man.
+    - Add :center parameter to render/pod2man.
 
 0.3.0  2025-01-13
     - Move maintenance from raku-community-modules to Samuel Young.

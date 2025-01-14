@@ -210,9 +210,11 @@ method pod2man(
     Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
     Str:D  :$section = '1',
     Date:D :$date = now.Date,
+    Str:D  :$version = "raku {$*RAKU.compiler.version}",
+    Str:D  :$center = "User Contributed Raku Documentation",
 ) {
     my $*POD2MAN-NESTING = 0;
-    qq«.pc\n.TH $program $section $date\n»
+    qq«.pc\n.TH $program $section "$date" "$version" "$center"\n»
         ~ self.para-ctx: { self.pod-node($pod) }
 }
 
@@ -225,12 +227,16 @@ method render(
     Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
     Str:D  :$section = '1',
     Date:D :$date = now.Date,
+    Str:D  :$version = "raku {$*RAKU.compiler.version}",
+    Str:D  :$center = "User Contributed Raku documentation",
 ) {
     self.pod2man(
         $pod,
         :program($program),
         :section($section),
         :date($date),
+        :version($version),
+        :center($center),
     );
 }
 
