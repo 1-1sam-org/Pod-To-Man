@@ -1,5 +1,7 @@
 Revision history for Pod-To-Man
 
+{{$NEXT}}
+
 1.0.0  2025-1-15
     - render no longer accepts optional arguments. To configure the generated
       roff, please use the pod2man method.
