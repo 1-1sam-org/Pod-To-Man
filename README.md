@@ -1,7 +1,7 @@
 NAME
 ====
 
-Pod::To::Man - Render Raku POD as Roff for man
+Pod::To::Man - Render Rakudoc as Roff for man
 
 SYNOPSIS
 ========
