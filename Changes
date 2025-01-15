@@ -5,6 +5,7 @@ Revision history for Pod-To-Man
       roff, please use the pod2man method.
     - rakudoc2man is now included with Pod::To::Man.
     - Pod::Load dependency.
+    - Pod::To::Text dependency.
     - :section now defaults to '3rakumod' if $*PROGRAM.basename is a pm6 or
       rakumod file.
     - Add :date parameter to pod2man.
