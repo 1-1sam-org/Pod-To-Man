@@ -14,18 +14,80 @@ raku --doc=Man your.rakudoc > your.1
 
 =end output
 
+From your scripts:
+
 =begin code :lang<raku>
 
 use Pod::To::Man;
 
-say Pod::To::Man.render($=pod);
+say Pod::To::Man.pod2man($=pod);
 
 =end code
 
-=head1 RESOURCES
+=head1 DESCRIPTION
 
-=item L<http://www.openbsd.org/papers/eurobsdcon2014-mandoc-slides.pdf>
-=item L<http://mandoc.bsd.lv/man/man.7.html>
+Pod::To::Man is a Raku module that converts a given Rakudoc (pod6) structure
+to formatted *roff input, suitable for displaying via the C<man(1)> program.
+
+=head2 Methods
+
+=head3 pod2man
+
+=begin code :lang<raku>
+method pod2man(
+    $pod,
+    Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
+    Str:D  :$section = '1',
+    Date:D :$date = now.Date,
+    Str:D  :$version = $*RAKU.compiler.gist,
+    Str:D  :$center = "User Contributed Raku Documentation",
+    Bool:D :$urls = True,
+)
+=end code
+
+C<pod2man> converts a given pod structure to *roff, returning the string of
+formatted *roff.
+
+C<:$program> will be the name C<pod2man> will use as the name of the manpage.
+By default, C<pod2man> will try to determine the manpage name by looking for
+the program name specified by any C<=head1 NAME> or C<=NAME> blocks/text. If it
+cannot determine the name to use from those, it will default to the value of
+C<$*PROGRAM.basename>.
+
+C<:$section> will be the manual section C<pod2man> will use. See
+C<man-pages(7)> for more information on the conventions for manpage sections.
+Defaults to C<'1'>.
+
+C<:$date> is the date to use for the manpage. Defaults to the value of
+C<now.Date>.
+
+C<:$version> is the version to use for the manpage heading. Defaults to
+C<$*RAKU.compiler.gist>, which will look something like
+C<'rakudo (20XX.XX)'>.
+
+C<:$center> is the text to display in the center of manpage heading. Defaults to
+C<"User Contributed Raku Documentation">.
+
+C<:$urls> is a boolean determining whether to generate URLs for C<'L<>'> links.
+Defaults to C<True>.
+
+=head3 render
+
+=begin code :lang<raku>
+method render($pod)
+=end code
+
+C<render> is basically the same thing as C<pod2man>, but does not support any
+customization of the output. This method mainly exists to be used by the
+C<--doc> option in the Raku compiler. If you're using Pod::To::Man in your code
+directly, you should just use C<pod2man>.
+
+=head1 BUGS
+
+Don't be ridiculous...
+
+Report bugs on this project's GitHub page,
+L<https://github.com/1-1sam-org/Pod-To-Man>.
 
 =head1 AUTHORS
 
@@ -35,13 +97,16 @@ say Pod::To::Man.render($=pod);
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright © 2019-2022 Mike Clarke
+=item Copyright © 2019-2022 Mike Clarke
+=item Copyright © 2022, 2025 Raku Community
+=item Copyright © 2025 Samuel Young
 
-Copyright © 2022, 2025 Raku Community
+This library is free software; you can redistribute it and/or modify it under
+the Artistic License 2.0.
 
-Copyright © 2025 Samuel Young
+=head1 SEE ALSO
 
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+man(1), roff(1), man(7), man-pages(7)
 
 =end pod
 
