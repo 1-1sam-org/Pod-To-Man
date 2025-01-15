@@ -8,7 +8,8 @@
   "build-depends": [
   ],
   "depends": [
-    "Pod::Load"
+    "Pod::Load",
+    "Pod::To::Text"
   ],
   "description": "Render Raku POD as Roff for man",
   "license": "Artistic-2.0",

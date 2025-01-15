@@ -2,6 +2,7 @@
 
 use Pod::Load;
 use Pod::To::Man;
+use Pod::To::Text;
 
 subset name    of Str;
 subset section of Str;
@@ -10,14 +11,14 @@ subset version of Str;
 subset center  of Str;
 
 multi sub MAIN(
-    $input  = $*IN,          #= Rakudoc file to read
-    $output = $*OUT,         #= File to write generated manpage to
-    name    :$name,          #= Name of manpage
-    section :$section = '1', #= Manpage section
-    date    :$date,          #= Manpage date
-    version :$release,       #= Manpage version
-    center  :$center,        #= Center heading text
-    Bool    :$nourls = False #= Do not render link URLs
+    $input  = $*IN,
+    $output = $*OUT,
+    name    :$name,
+    section :$section = $input ~~ / '.' [ 'pm6' | 'rakumod' ] $ / ?? '3rakumod' !! '1',
+    date    :$date,
+    version :$release,
+    center  :$center,
+    Bool    :$nourls = False
 ) {
 
     my %args;
@@ -44,11 +45,73 @@ multi sub MAIN(
 }
 
 multi sub MAIN(
-    Bool :$help! #= Print usage message
+    Bool :$help!
 ) {
-
-    put $*USAGE;
-
+    USAGE;
 }
+
+sub USAGE() {
+    put pod2text $=pod;
+}
+
+=begin pod
+
+=begin comment
+Exists for usage message
+=end comment
+
+=head1 Usage
+
+  rakudoc2man [--name=<name>] [--section=<section>] [--date=<date>]
+      [--release=<version>] [--center=<center>] [--nourls] [<input> [<output>]]
+  rakudoc2man --help
+
+=head1 Options
+
+=begin item
+B<--name>=I<name>
+
+Name to use for the manpage heading. If not specified, B<rakudoc2man> will try
+to scan through the pod for any names in C<=head1 NAME> or C<=NAME> blocks and
+use the name it finds there. Otherwise, it defaults to the input filename.
+=end item
+
+=begin item
+B<--section>=I<section>
+
+Section to use for manpage heading. See C<man-pages(7)> for more information
+on the various common manpage sections. If not specified, B<rakudoc2man> will
+use C<'3rakumod'> if the given file ends with a C<'.pm6'> or C<'.rakumod'>
+extension, otherwise it defaults to C<'1'>.
+=end item
+
+=begin item
+B<--date>=I<date>
+
+Date to use for the manpage footing. Should follow the C<YYYY-MM-DD> format.
+Defaults to the current date.
+=end item
+
+=begin item
+B<--release>=I<version>
+
+Release version to use for the manpage footing. Defaults to the value of
+C<$*RAKU.compiler.gist>, which should look something like C<'rakudo (20XX.XX)'>.
+=end item
+
+=begin item
+B<--center>=I<center>
+
+String to use for center heading text. Defaults to
+C<'User Contributed Raku Documentation'>.
+=end item
+
+=begin item
+B<--nourls>
+
+Disable the rendering of links in C<'L<>'> text.
+=end item
+
+=end pod
 
 # vim: expandtab shiftwidth=4
