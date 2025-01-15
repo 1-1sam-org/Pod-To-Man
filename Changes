@@ -3,6 +3,8 @@ Revision history for Pod-To-Man
 {{$NEXT}}
     - render no longer accepts optional arguments. To configure the generated
       roff, please use the pod2man method.
+    - rakudoc2man is now included with Pod::To::Man.
+    - Pod::Load dependency.
     - Add :date parameter to pod2man.
     - Add :version parameter to pod2man.
     - Add :center parameter to pod2man.
