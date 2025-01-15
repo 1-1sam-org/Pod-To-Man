@@ -82,6 +82,15 @@ customization of the output. This method mainly exists to be used by the
 C<--doc> option in the Raku compiler. If you're using Pod::To::Man in your code
 directly, you should just use C<pod2man>.
 
+=head3 pod2roff
+
+=begin code :lang<raku>
+method pod2roff($pod)
+=end code
+
+This method exists only for compatibility reasons. You should use C<pod2man>
+instead.
+
 =head1 BUGS
 
 Don't be ridiculous...

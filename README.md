@@ -62,6 +62,14 @@ method render($pod)
 
 `render` is basically the same thing as `pod2man`, but does not support any customization of the output. This method mainly exists to be used by the `--doc` option in the Raku compiler. If you're using Pod::To::Man in your code directly, you should just use `pod2man`.
 
+### pod2roff
+
+```raku
+method pod2roff($pod)
+```
+
+This method exists only for compatibility reasons. You should use `pod2man` instead.
+
 BUGS
 ====
 
