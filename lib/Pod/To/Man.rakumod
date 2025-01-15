@@ -208,7 +208,7 @@ multi method pod-node(Any $pod) {
 method pod2man(
     $pod,
     Str:D  :$program = get-pod-name($pod) // $*PROGRAM.basename,
-    Str:D  :$section = '1',
+    Str:D  :$section = $*PROGRAM.basename ~~ / '.' [ 'pm6' | 'rakumod' ] $ / ?? '3rakumod' !! '1',
     Date:D :$date = now.Date,
     Str:D  :$version = $*RAKU.compiler.gist,
     Str:D  :$center = "User Contributed Raku Documentation",
