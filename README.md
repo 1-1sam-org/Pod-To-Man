@@ -23,6 +23,8 @@ DESCRIPTION
 
 Pod::To::Man is a Raku module that converts a given Rakudoc (pod6) structure to formatted *roff input, suitable for displaying via the `man(1)` program.
 
+This module also comes with the `rakudoc2man` program, which is a front-end to Pod::To::Man that is a more robust alternative to using Pod::To::Man with Raku's builtin `--doc` renderer.
+
 Methods
 -------
 
