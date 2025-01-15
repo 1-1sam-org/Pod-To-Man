@@ -1,6 +1,7 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+    - render can now be configured via environment variables.
 
 1.0.0  2025-1-15
     - render no longer accepts optional arguments. To configure the generated
