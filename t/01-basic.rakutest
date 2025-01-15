@@ -1,7 +1,7 @@
 use Test;
 use Pod::To::Man;
 
-plan 20;
+plan 26;
 
 =begin pod
 
@@ -81,6 +81,8 @@ text
 
 =end pod
 
+%*ENV = ();
+
 my $roff;
 
 lives-ok {
@@ -139,5 +141,24 @@ lives-ok {
 }, "third pod renders ok";
 
 ok $roff.contains('.TH Test'), "has the header specified by =NAME";
+
+%*ENV = (
+    RAKUDOC2MAN_PROGRAM => 'program',
+    RAKUDOC2MAN_SECTION => '1337',
+    RAKUDOC2MAN_DATE    => '2015-11-24',
+    RAKUDOC2MAN_VERSION => '13.37',
+    RAKUDOC2MAN_CENTER  => 'SomeTestDocumentation',
+    RAKUDOC2MAN_URLS    => '0',
+);
+
+lives-ok {
+    $roff = Pod::To::Man.render($=pod[0]);
+}, "pod renders with environment variables ok";
+
+ok $roff.contains('.TH program'), "has the header with custom program";
+ok $roff.contains('program 1337'), "has the header with custom section";
+ok $roff.contains('1337 "2015-11-24"'), "has the header with custom date";
+ok $roff.contains('"2015-11-24" "13.37"'), "has the header with custom version";
+ok $roff.contains('"13.37" "SomeTestDocumentation"'), "has the header with custom center";
 
 done-testing;

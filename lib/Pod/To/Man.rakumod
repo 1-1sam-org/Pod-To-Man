@@ -232,7 +232,22 @@ method pod2roff($pod) {
 }
 
 method render($pod) {
-    self.pod2man($pod);
+
+    my %envmap = (
+        RAKUDOC2MAN_PROGRAM => { program => $_;      },
+        RAKUDOC2MAN_SECTION => { section => $_;      },
+        RAKUDOC2MAN_DATE    => { date    => $_.Date; },
+        RAKUDOC2MAN_VERSION => { version => $_;      },
+        RAKUDOC2MAN_CENTER  => { center  => $_;      },
+        RAKUDOC2MAN_URLS    => { urls    => ?+$_;    },
+    );
+
+    my %args = gather for %envmap.kv -> $k, $v {
+        next unless %*ENV{$k}.defined;
+        take $v(%*ENV{$k});
+    }
+
+    self.pod2man($pod, |%args);
 }
 
 # vim: expandtab shiftwidth=4
