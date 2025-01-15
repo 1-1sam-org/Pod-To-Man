@@ -15,7 +15,7 @@ multi sub MAIN(
 	name    :$name,          #= Name of manpage
 	section :$section = '1', #= Manpage section
 	date    :$date,          #= Manpage date
-	version :$version,       #= Manpage version
+	version :$release,       #= Manpage version
 	center  :$center,        #= Center heading text
 	Bool    :$nourls = False #= Do not render link URLs
 ) {
@@ -25,7 +25,7 @@ multi sub MAIN(
 	%args ,= program => $name      if $name;
 	%args ,= section => $section;
 	%args ,= date    => $date.Date if $date.defined;
-	%args ,= version => $version   if $version.defined;
+	%args ,= version => $release   if $release.defined;
 	%args ,= center  => $center    if $center.defined;
 	%args ,= urls    => !$nourls;
 
