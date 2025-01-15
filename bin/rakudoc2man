@@ -1,0 +1,56 @@
+#!/usr/bin/env raku
+
+use Pod::Load;
+use Pod::To::Man;
+
+subset name    of Str;
+subset section of Str;
+
+multi sub MAIN(
+	$input  = $*IN,          #= Rakudoc file to read
+	$output = $*OUT,         #= File to write generated manpage to
+	name    :$name,          #= Specify name of manpage
+	section :$section = '1', #= Specify manpage section
+) {
+
+	my %args;
+
+	%args ,= program => $name    if $name;
+	%args ,= section => $section;
+
+	my $man = Pod::To::Man.pod2man(
+		load(slurp $input),
+		|%args
+	);
+
+	my $fh = open $output, :w
+		or die "Failed to open $output for writing: $!";
+
+	$fh.put: $man;
+
+	$fh.close;
+
+}
+
+multi sub MAIN(
+	Bool :$help! #= Print usage message
+) {
+
+	put $*USAGE;
+
+}
+
+multi sub MAIN(
+	Bool :$version! #= Print version and copyright info
+) {
+
+	print qq:to/HERE/;
+rakudoc2man {$?DISTRIBUTION.meta<ver>}
+
+Copyright 2025 Samuel Young
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the Artistic License 2.0.
+HERE
+
+}
