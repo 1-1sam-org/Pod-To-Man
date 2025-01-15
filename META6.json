@@ -11,7 +11,7 @@
     "Pod::Load",
     "Pod::To::Text"
   ],
-  "description": "Render Raku POD as Roff for man",
+  "description": "Render Rakudoc as Roff for man",
   "license": "Artistic-2.0",
   "name": "Pod::To::Man",
   "perl": "6.d",
