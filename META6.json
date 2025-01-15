@@ -21,10 +21,14 @@
   "resources": [
   ],
   "source-url": "https://github.com/1-1sam-org/Pod-To-Man.git",
+  "support": {
+    "bugtracker": "https://github.com/1-1sam-org/Pod-To-Man/issues"
+  },
   "tags": [
     "rakudoc",
     "pod",
-    "man"
+    "man",
+    "roff"
   ],
   "test-depends": [
     "Test"
