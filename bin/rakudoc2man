@@ -10,43 +10,45 @@ subset version of Str;
 subset center  of Str;
 
 multi sub MAIN(
-	$input  = $*IN,          #= Rakudoc file to read
-	$output = $*OUT,         #= File to write generated manpage to
-	name    :$name,          #= Name of manpage
-	section :$section = '1', #= Manpage section
-	date    :$date,          #= Manpage date
-	version :$release,       #= Manpage version
-	center  :$center,        #= Center heading text
-	Bool    :$nourls = False #= Do not render link URLs
+    $input  = $*IN,          #= Rakudoc file to read
+    $output = $*OUT,         #= File to write generated manpage to
+    name    :$name,          #= Name of manpage
+    section :$section = '1', #= Manpage section
+    date    :$date,          #= Manpage date
+    version :$release,       #= Manpage version
+    center  :$center,        #= Center heading text
+    Bool    :$nourls = False #= Do not render link URLs
 ) {
 
-	my %args;
+    my %args;
 
-	%args ,= program => $name      if $name;
-	%args ,= section => $section;
-	%args ,= date    => $date.Date if $date.defined;
-	%args ,= version => $release   if $release.defined;
-	%args ,= center  => $center    if $center.defined;
-	%args ,= urls    => !$nourls;
+    %args ,= program => $name      if $name;
+    %args ,= section => $section;
+    %args ,= date    => $date.Date if $date.defined;
+    %args ,= version => $release   if $release.defined;
+    %args ,= center  => $center    if $center.defined;
+    %args ,= urls    => !$nourls;
 
-	my $man = Pod::To::Man.pod2man(
-		load(slurp $input),
-		|%args
-	);
+    my $man = Pod::To::Man.pod2man(
+        load(slurp $input),
+        |%args
+    );
 
-	my $fh = open $output, :w
-		or die "Failed to open $output for writing: $!";
+    my $fh = open $output, :w
+        or die "Failed to open $output for writing: $!";
 
-	$fh.put: $man;
+    $fh.put: $man;
 
-	$fh.close;
+    $fh.close;
 
 }
 
 multi sub MAIN(
-	Bool :$help! #= Print usage message
+    Bool :$help! #= Print usage message
 ) {
 
-	put $*USAGE;
+    put $*USAGE;
 
 }
+
+# vim: expandtab shiftwidth=4
