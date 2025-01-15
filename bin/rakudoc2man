@@ -69,6 +69,18 @@ Exists for usage message
 =head1 Options
 
 =begin item
+I<input>
+
+File to read Rakudoc source from. If not specified, defaults to C<STDIN>.
+=end item
+
+=begin item
+I<output>
+
+File to write generated manpage to. If not specified, defaults to C<STDOUT>.
+=end item
+
+=begin item
 B<--name>=I<name>
 
 Name to use for the manpage heading. If not specified, B<rakudoc2man> will try
