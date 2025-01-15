@@ -60,7 +60,8 @@ C<$*PROGRAM.basename>.
 
 C<:$section> will be the manual section C<pod2man> will use. See
 C<man-pages(7)> for more information on the conventions for manpage sections.
-Defaults to C<'1'>.
+If C<$*PROGRAM.basename> ends in the C<'.pm6'> or C<'.rakumod'> suffix, the
+section will be C<'3rakumod'>. Otherwise, defaults to C<'1'>.
 
 C<:$date> is the date to use for the manpage. Defaults to the value of
 C<now.Date>.

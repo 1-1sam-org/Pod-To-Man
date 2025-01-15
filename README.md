@@ -46,7 +46,7 @@ method pod2man(
 
 `:$program` will be the name `pod2man` will use as the name of the manpage. By default, `pod2man` will try to determine the manpage name by looking for the program name specified by any `=head1 NAME` or `=NAME` blocks/text. If it cannot determine the name to use from those, it will default to the value of `$*PROGRAM.basename`.
 
-`:$section` will be the manual section `pod2man` will use. See `man-pages(7)` for more information on the conventions for manpage sections. Defaults to `'1'`.
+`:$section` will be the manual section `pod2man` will use. See `man-pages(7)` for more information on the conventions for manpage sections. If `$*PROGRAM.basename` ends in the `'.pm6'` or `'.rakumod'` suffix, the section will be `'3rakumod'`. Otherwise, defaults to `'1'`.
 
 `:$date` is the date to use for the manpage. Defaults to the value of `now.Date`.
 
