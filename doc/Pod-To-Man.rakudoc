@@ -82,10 +82,26 @@ Defaults to C<True>.
 method render($pod)
 =end code
 
-C<render> is basically the same thing as C<pod2man>, but does not support any
-customization of the output. This method mainly exists to be used by the
-C<--doc> option in the Raku compiler. If you're using Pod::To::Man in your code
-directly, you should just use C<pod2man>.
+C<render> is basically the same thing as C<pod2man>, but customization is done
+through environment variables instead of method parameters. This is because it
+allows the render to be customized when using the C<--doc> option in Raku.
+If you're using Pod::To::Man in your code directly, you should just use
+C<pod2man>.
+
+The following environment variables are supported, each corresponding to their
+respective C<pod2man> parameter.
+
+=item C<RAKUDOC2MAN_PROGRAM>
+=item C<RAKUDOC2MAN_SECTION>
+=item C<RAKUDOC2MAN_DATE>
+=item C<RAKUDOC2MAN_VERSION>
+=item C<RAKUDOC2MAN_CENTER>
+=item C<RAKUDOC2MAN_URLS>
+
+Most of them accept the same values as their C<pod2man> counterparts.
+C<RAKUDOC2MAN_DATE> must be given a date string following the C<YYYY-MM-DD>
+format. C<RAKUDOC2MAN_URLS> must be given a number, with C<0> equating to
+C<False> and any non-zero value being C<True>.
 
 =head3 pod2roff
 

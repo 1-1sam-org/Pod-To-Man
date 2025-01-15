@@ -62,7 +62,23 @@ method pod2man(
 method render($pod)
 ```
 
-`render` is basically the same thing as `pod2man`, but does not support any customization of the output. This method mainly exists to be used by the `--doc` option in the Raku compiler. If you're using Pod::To::Man in your code directly, you should just use `pod2man`.
+`render` is basically the same thing as `pod2man`, but customization is done through environment variables instead of method parameters. This is because it allows the render to be customized when using the `--doc` option in Raku. If you're using Pod::To::Man in your code directly, you should just use `pod2man`.
+
+The following environment variables are supported, each corresponding to their respective `pod2man` parameter.
+
+  * `RAKUDOC2MAN_PROGRAM`
+
+  * `RAKUDOC2MAN_SECTION`
+
+  * `RAKUDOC2MAN_DATE`
+
+  * `RAKUDOC2MAN_VERSION`
+
+  * `RAKUDOC2MAN_CENTER`
+
+  * `RAKUDOC2MAN_URLS`
+
+Most of them accept the same values as their `pod2man` counterparts. `RAKUDOC2MAN_DATE` must be given a date string following the `YYYY-MM-DD` format. `RAKUDOC2MAN_URLS` must be given a number, with `0` equating to `False` and any non-zero value being `True`.
 
 ### pod2roff
 
