@@ -72,6 +72,9 @@ Exists for usage message
 I<input>
 
 File to read Rakudoc source from. If not specified, defaults to C<STDIN>.
+The given Rakudoc source should not be embedded in normal Raku code, as
+B<rakudoc2man> will not be able to read it properly (this is unfortunately a
+limitation with Pod::Load).
 =end item
 
 =begin item
