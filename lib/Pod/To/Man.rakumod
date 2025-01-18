@@ -210,7 +210,7 @@ multi method pod-node(Pod::Block::Declarator:D $pod) {
             $res ~= self.pod-node(Pod::Block::Code.new(
                 :contents(
                     "enum $_.raku() " ~
-                    signature2text($_.enums.pairs.sort: { .value.gist }) ~
+                    signature2text($_.enums.pairs.sort: { .value }) ~
                     "\n"
                 )
             ));
