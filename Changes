@@ -1,11 +1,11 @@
 Revision history for Pod-To-Man
 
-{{$NEXT}}
+1.1.0  2025-01-18
     - render can now be configured via environment variables.
     - Add support for Pod::Block::Declarator blocks.
     - Documentation has been moved from doc/ to Man.rakumod.
 
-1.0.0  2025-1-15
+1.0.0  2025-01-15
     - render no longer accepts optional arguments. To configure the generated
       roff, please use the pod2man method.
     - rakudoc2man is now included with Pod::To::Man.
