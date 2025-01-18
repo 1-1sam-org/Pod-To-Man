@@ -1,6 +1,8 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+    - Modify attribute pod declarator formatting.
+    - Fix grammatical issues in documentation.
 
 1.1.0  2025-01-18
     - render can now be configured via environment variables.
