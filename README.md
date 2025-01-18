@@ -52,7 +52,7 @@ method pod2man(
 
 `:$version` is the version to use for the manpage heading. Defaults to `$*RAKU.compiler.gist`, which will look something like `'rakudo (20XX.XX)'`.
 
-`:$center` is the text to display in the center of manpage heading. Defaults to `"User Contributed Raku Documentation"`.
+`:$center` is the text to display in the center of the manpage heading. Defaults to `"User Contributed Raku Documentation"`.
 
 `:$urls` is a boolean determining whether to generate URLs for `'L<>'` links. Defaults to `True`.
 
