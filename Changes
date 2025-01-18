@@ -2,6 +2,7 @@ Revision history for Pod-To-Man
 
 {{$NEXT}}
     - render can now be configured via environment variables.
+    - Add support for Pod::Block::Declarator blocks.
     - Documentation has been moved from doc/ to Man.rakumod.
 
 1.0.0  2025-1-15
