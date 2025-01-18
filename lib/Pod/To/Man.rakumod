@@ -177,6 +177,9 @@ multi method pod-node(Pod::Block::Table:D $pod) {
 }
 
 # Code adapted from Pod::To::Text
+# TODO: I quickly hacked together Pod::Block::Declarator support by
+# sloppily adapting the code from Pod::To::Text. At some point in the future,
+# I should go back through and make this code more "proper".
 multi method pod-node(Pod::Block::Declarator:D $pod) {
 
     next unless $pod.WHEREFORE.WHY;
