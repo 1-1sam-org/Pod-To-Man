@@ -410,8 +410,8 @@ C<:$version> is the version to use for the manpage heading. Defaults to
 C<$*RAKU.compiler.gist>, which will look something like
 C<'rakudo (20XX.XX)'>.
 
-C<:$center> is the text to display in the center of manpage heading. Defaults to
-C<"User Contributed Raku Documentation">.
+C<:$center> is the text to display in the center of the manpage heading.
+Defaults to C<"User Contributed Raku Documentation">.
 
 C<:$urls> is a boolean determining whether to generate URLs for C<'L<>'> links.
 Defaults to C<True>.
