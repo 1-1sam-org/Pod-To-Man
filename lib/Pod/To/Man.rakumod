@@ -208,7 +208,11 @@ multi method pod-node(Pod::Block::Declarator:D $pod) {
         when .HOW ~~ Metamodel::EnumHOW {
             my $res = ".SS enum $_.raku()\n";
             $res ~= self.pod-node(Pod::Block::Code.new(
-                :contents("enum $_.raku() {signature2text($_.enums.pairs.sort)}\n")
+                :contents(
+                    "enum $_.raku() " ~
+                    signature2text($_.enums.pairs.sort: { .value.gist }) ~
+                    "\n"
+                )
             ));
         }
         when .HOW ~~ Metamodel::ClassHOW {
