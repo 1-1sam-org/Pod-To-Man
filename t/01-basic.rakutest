@@ -1,7 +1,7 @@
 use Test;
 use Pod::To::Man;
 
-plan 26;
+plan 35;
 
 =begin pod
 
@@ -80,6 +80,48 @@ text
   yada yada...
 
 =end pod
+
+#| A class that exists to test class pod declarators.
+my class TestClass {
+
+	#| Foo of TestClass
+	has $.foo;
+
+	#| Concatenates a and b
+	method foobar(
+		$a, #= Argument a
+		$b, #= Argument b
+		--> Str
+	) {
+		$a ~ $b;
+	}
+
+}
+
+#| A sub that exists to test sub pod declarators.
+my sub test-sub(
+	$c, #= Argument c
+	$d, #= Argument d
+	--> Int
+) {
+	$c + $d;
+}
+
+#| An enum that exists to test enum pod declarators.
+enum TestEnum <foo bar baz>;
+
+#| A module that exists to test module pod declarators.
+my module TestModule {
+	"foo";
+}
+
+#| A subset that exists to test subset pod declarators.
+subset test-subset of Str;
+
+#| A package that exists to test package pod declarators.
+my package TestPackage {
+	"foo";
+}
 
 %*ENV = ();
 
@@ -160,5 +202,104 @@ ok $roff.contains('program 1337'), "has the header with custom section";
 ok $roff.contains('1337 "2015-11-24"'), "has the header with custom date";
 ok $roff.contains('"2015-11-24" "13.37"'), "has the header with custom version";
 ok $roff.contains('"13.37" "SomeTestDocumentation"'), "has the header with custom center";
+
+lives-ok {
+	$roff = Pod::To::Man.pod2man($=pod[3..*])
+}, "declarator pod renders ok";
+
+ok $roff.contains(q:to/HERE/), "has the class documentation";
+.SS class TestClass
+
+A class that exists to test class pod declarators\&.
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the attribute documentation";
+.SS attribute $!foo
+
+.RS 4m
+.EX
+attribute Mu $!foo
+
+.EE
+.RE
+Foo of TestClass
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the method documentation";
+.SS method foobar
+
+.RS 4m
+.EX
+method foobar (
+	$a, # Argument a
+	$b, # Argument b
+	\-\-> Str
+)
+
+.EE
+.RE
+Concatenates a and b
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the sub documentation";
+.SS sub test-sub
+
+.RS 4m
+.EX
+sub test\-sub (
+	$c, # Argument c
+	$d, # Argument d
+	\-\-> Int
+)
+
+.EE
+.RE
+A sub that exists to test sub pod declarators\&.
+.SS class $c
+
+Argument c
+.SS class $d
+
+Argument d
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the enum documentation";
+.SS enum TestEnum
+
+.RS 4m
+.EX
+enum TestEnum (
+	:bar(1), 
+	:baz(2), 
+	:foo(0), 
+)
+
+.EE
+.RE
+An enum that exists to test enum pod declarators\&.
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the module documentation";
+.SS module TestModule
+
+A module that exists to test module pod declarators\&.
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the subset documentation";
+.SS subset test-subset
+
+.RS 4m
+.EX
+subset test\-subset of Str
+.EE
+.RE
+A subset that exists to test subset pod declarators\&.
+HERE
+
+ok $roff.contains(q:to/HERE/), "has the package documentation";
+.SS package TestPackage
+
+A package that exists to test package pod declarators\&.
+HERE
 
 done-testing;
