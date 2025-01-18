@@ -202,7 +202,7 @@ multi method pod-node(Pod::Block::Declarator:D $pod) {
         when Attribute {
             my $res = ".SS attribute $_.name()\n";
             $res ~= self.pod-node(Pod::Block::Code.new(
-                :contents("attribute $_.gist()\n")
+                :contents("has $_.gist()\n")
             ));
         }
         when .HOW ~~ Metamodel::EnumHOW {

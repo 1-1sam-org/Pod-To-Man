@@ -212,7 +212,7 @@ ok $roff.contains(q:to/HERE/), "has the attribute documentation";
 
 .RS 4m
 .EX
-attribute Mu $!foo
+has Mu $!foo
 
 .EE
 .RE
