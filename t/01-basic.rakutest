@@ -111,17 +111,13 @@ my sub test-sub(
 enum TestEnum <foo bar baz>;
 
 #| A module that exists to test module pod declarators.
-my module TestModule {
-	"foo";
-}
+my module TestModule { }
 
 #| A subset that exists to test subset pod declarators.
 subset test-subset of Str;
 
 #| A package that exists to test package pod declarators.
-my package TestPackage {
-	"foo";
-}
+my package TestPackage { }
 
 %*ENV = ();
 
