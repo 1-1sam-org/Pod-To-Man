@@ -176,6 +176,85 @@ multi method pod-node(Pod::Block::Table:D $pod) {
 
 }
 
+# Code adapted from Pod::To::Text
+multi method pod-node(Pod::Block::Declarator:D $pod) {
+
+    next unless $pod.WHEREFORE.WHY;
+
+    my $man = do given $pod.WHEREFORE {
+        when Method {
+            my $res = ".SS method $_.name()\n";
+            my @params = $_.signature.params.skip;
+            @params.pop if @params.tail.name eq '%_';
+            $res ~= self.pod-node(Pod::Block::Code.new(
+                :contents("method $_.name() {signature2text(@params, $_.returns)}\n")
+            ));
+        }
+        when Sub {
+            my $res = ".SS sub $_.name()\n";
+            $res ~= self.pod-node(Pod::Block::Code.new(
+                :contents("sub $_.name() {signature2text($_.signature.params, $_.returns)}\n")
+            ));
+        }
+        when Attribute {
+            my $res = ".SS attribute $_.name()\n";
+            $res ~= self.pod-node(Pod::Block::Code.new(
+                :contents("attribute $_.gist()\n")
+            ));
+        }
+        when .HOW ~~ Metamodel::EnumHOW {
+            my $res = ".SS enum $_.raku()\n";
+            $res ~= self.pod-node(Pod::Block::Code.new(
+                :contents("enum $_.raku() {signature2text($_.enums.pairs)}\n")
+            ));
+        }
+        when .HOW ~~ Metamodel::ClassHOW {
+            my $res = ".SS class $_.raku()\n";
+        }
+        when .HOW ~~ Metamodel::ModuleHOW {
+            my $res = ".SS module $_.raku()\n";
+        }
+        when .HOW ~~ Metamodel::SubsetHOW {
+            my $res = ".SS subset $_.raku()\n";
+            $res ~= self.pod-node(Pod::Block::Code.new(
+                :contents("subset $_.raku() of $_.^refinee().raku()")
+            ));
+        }
+        when .HOW ~~ Metamodel::PackageHOW {
+            my $res = ".SS package $_.raku()\n";
+        }
+        default {
+            ''
+        }
+    }
+
+    $man ~= "\n{$pod.WHEREFORE.WHY.contents.map({ escape $_ })}";
+
+}
+
+# Taken from Pod::To::Text
+sub signature2text($params, Mu $returns?) {
+
+    my $result = '(';
+
+    if $params.elems {
+        $result ~= "\n\t" ~ $params.map(&param2text).join("\n\t");
+    }
+    unless $returns<> =:= Mu {
+        $result ~= "\n\t--> " ~ $returns.raku;
+    }
+    if $result.chars > 1 {
+        $result ~= "\n";
+    }
+    $result ~= ')';
+    return $result;
+
+}
+
+# Taken from Pod::To::Text
+sub param2text($p) {
+    $p.raku ~ ',' ~ ( $p.WHY ?? ' # ' ~ $p.WHY !! ' ');
+}
 
 multi method pod-node(Pod::FormattingCode $pod) {
     return '' if $pod.type eq 'Z';
