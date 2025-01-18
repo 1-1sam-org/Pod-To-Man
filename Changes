@@ -1,5 +1,7 @@
 Revision history for Pod-To-Man
 
+{{$NEXT}}
+
 1.1.0  2025-01-18
     - render can now be configured via environment variables.
     - Add support for Pod::Block::Declarator blocks.
