@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/1-1sam-org/Pod-To-Man/actions/workflows/linux.yml/badge.svg)](https://github.com/1-1sam-org/Pod-To-Man/actions) [![Actions Status](https://github.com/1-1sam-org/Pod-To-Man/actions/workflows/macos.yml/badge.svg)](https://github.com/1-1sam-org/Pod-To-Man/actions) [![Actions Status](https://github.com/1-1sam-org/Pod-To-Man/actions/workflows/windows.yml/badge.svg)](https://github.com/1-1sam-org/Pod-To-Man/actions)
+
 NAME
 ====
 
