@@ -235,7 +235,9 @@ multi method pod-node(Pod::Block::Declarator:D $pod) {
         }
     }
 
-    $man ~= "\n{$pod.WHEREFORE.WHY.contents.map({ escape $_ })}";
+    if my $why = $pod.WHEREFORE.WHY.contents.map({ escape $_ }) {
+        $man ~= "\n.PP\n$why\n";
+    }
 
 }
 

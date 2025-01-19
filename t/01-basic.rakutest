@@ -204,6 +204,7 @@ lives-ok {
 ok $roff.contains(q:to/HERE/), "has the class documentation";
 .SS class TestClass
 
+.PP
 A class that exists to test class pod declarators\&.
 HERE
 
@@ -216,6 +217,7 @@ has Mu $!foo
 
 .EE
 .RE
+.PP
 Foo of TestClass
 HERE
 
@@ -232,6 +234,7 @@ method foobar (
 
 .EE
 .RE
+.PP
 Concatenates a and b
 HERE
 
@@ -248,12 +251,17 @@ sub test\-sub (
 
 .EE
 .RE
+.PP
 A sub that exists to test sub pod declarators\&.
+
 .SS class $c
 
+.PP
 Argument c
+
 .SS class $d
 
+.PP
 Argument d
 HERE
 
@@ -270,12 +278,14 @@ enum TestEnum (
 
 .EE
 .RE
+.PP
 An enum that exists to test enum pod declarators\&.
 HERE
 
 ok $roff.contains(q:to/HERE/), "has the module documentation";
 .SS module TestModule
 
+.PP
 A module that exists to test module pod declarators\&.
 HERE
 
@@ -287,12 +297,14 @@ ok $roff.contains(q:to/HERE/), "has the subset documentation";
 subset test\-subset of Str
 .EE
 .RE
+.PP
 A subset that exists to test subset pod declarators\&.
 HERE
 
 ok $roff.contains(q:to/HERE/), "has the package documentation";
 .SS package TestPackage
 
+.PP
 A package that exists to test package pod declarators\&.
 HERE
 
