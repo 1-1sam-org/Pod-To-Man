@@ -25,7 +25,7 @@ sub get-pod-name($pod) {
     }
 
     # If there's no '=NAME' block, look for a paragraph block preceded by a
-    # '=HEAD1 NAME' heading.
+    # '=head1 NAME' heading.
     for $pod<> -> $node {
 
         for $node.contents.kv -> $k, $cont {
