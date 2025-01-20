@@ -74,7 +74,7 @@ sub table2text(Pod::Block::Table:D $pod) {
         $table ~= join(' | ', gather for $pod.headers.kv -> $k, $v {
             take pad-str($v, @cell-lengths[$k]);
         }) ~ "\n";
-        $table ~= "{'=' x (([+] @cell-lengths) + (+$pod.headers - 1) * 3)}\n";
+        $table ~= "{'=' x (3 * (+$pod.headers - 1) + @cell-lengths.sum)}\n";
     }
 
     for $pod.contents -> $row {
