@@ -138,7 +138,7 @@ lives-ok {
 }, "second pod renders ok";
 
 like $roff, /^^ 'Entering text\\&.' .* 'Level 1\\&.1' .* 'Level 2\\&.1' .* 'Big item' .* 'A nested item' .* 'definition'/, "all expected text is in place";
-like $roff, /'Level 1\\&.1'\n \.RS .* 'Level 2\\&.1' .* \.RE/, "level items are rendered with indentation";
+like $roff, /'Level 1\\&.1'\n \.RE\n \.RS .* 'Level 2\\&.1' .* [\.RE\n] ** 2/, "level items are rendered with indentation";
 like $roff, /'Big item' \n \.IP \n 'with few paragraphs' \n \.IP \n \.RS .* \.IP .* 'A nested item' \n \.IP \n 'with paragraphs'/, 'nested multiparagraph items';
 
 ok $roff.contains(q:to/HERE/), "table was rendered";
