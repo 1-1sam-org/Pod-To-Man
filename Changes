@@ -5,6 +5,7 @@ Revision history for Pod-To-Man
     - Fix grammatical issues in documentation.
     - .PP is used for WHY pod.
     - Reset indention after item blocks.
+    - Change auth from zef:raku-community-modules to zef:samy, ++lizmat
 
 1.1.0  2025-01-18
     - render can now be configured via environment variables.
