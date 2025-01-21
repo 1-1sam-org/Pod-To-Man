@@ -84,27 +84,27 @@ text
 #| A class that exists to test class pod declarators.
 my class TestClass {
 
-	#| Foo of TestClass
-	has $.foo;
+    #| Foo of TestClass
+    has $.foo;
 
-	#| Concatenates a and b
-	method foobar(
-		$a, #= Argument a
-		$b, #= Argument b
-		--> Str
-	) {
-		$a ~ $b;
-	}
+    #| Concatenates a and b
+    method foobar(
+        $a, #= Argument a
+        $b, #= Argument b
+        --> Str
+    ) {
+        $a ~ $b;
+    }
 
 }
 
 #| A sub that exists to test sub pod declarators.
 my sub test-sub(
-	$c, #= Argument c
-	$d, #= Argument d
-	--> Int
+    $c, #= Argument c
+    $d, #= Argument d
+    --> Int
 ) {
-	$c + $d;
+    $c + $d;
 }
 
 #| An enum that exists to test enum pod declarators.
@@ -198,7 +198,7 @@ ok $roff.contains('"2015-11-24" "13.37"'), "has the header with custom version";
 ok $roff.contains('"13.37" "SomeTestDocumentation"'), "has the header with custom center";
 
 lives-ok {
-	$roff = Pod::To::Man.pod2man($=pod[3..*])
+    $roff = Pod::To::Man.pod2man($=pod[3..*])
 }, "declarator pod renders ok";
 
 ok $roff.contains(q:to/HERE/), "has the class documentation";
@@ -208,12 +208,12 @@ ok $roff.contains(q:to/HERE/), "has the class documentation";
 A class that exists to test class pod declarators\&.
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the attribute documentation";
-.SS attribute $!foo
+ok $roff.contains(qq:to/HERE/), "has the attribute documentation";
+.SS attribute \$!foo
 
 .RS 4m
 .EX
-has Mu $!foo
+has Mu \$!foo
 
 .EE
 .RE
@@ -221,15 +221,15 @@ has Mu $!foo
 Foo of TestClass
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the method documentation";
+ok $roff.contains(qq:to/HERE/), "has the method documentation";
 .SS method foobar
 
 .RS 4m
 .EX
 method foobar (
-	$a, # Argument a
-	$b, # Argument b
-	\-\-> Str
+\t\$a, # Argument a
+\t\$b, # Argument b
+\t\\-\\-> Str
 )
 
 .EE
@@ -238,74 +238,76 @@ method foobar (
 Concatenates a and b
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the sub documentation";
+ok $roff.contains(qq:to/HERE/), "has the sub documentation";
 .SS sub test-sub
 
 .RS 4m
 .EX
-sub test\-sub (
-	$c, # Argument c
-	$d, # Argument d
-	\-\-> Int
+sub test\\-sub (
+\t\$c, # Argument c
+\t\$d, # Argument d
+\t\\-\\-> Int
 )
 
 .EE
 .RE
 .PP
-A sub that exists to test sub pod declarators\&.
+A sub that exists to test sub pod declarators\\&.
 
-.SS class $c
+.SS class \$c
 
 .PP
 Argument c
 
-.SS class $d
+.SS class \$d
 
 .PP
 Argument d
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the enum documentation";
+ok $roff.contains(qq:to/HERE/), "has the enum documentation";
 .SS enum TestEnum
 
 .RS 4m
 .EX
 enum TestEnum (
-	:foo(0), 
-	:bar(1), 
-	:baz(2), 
+\t:foo(0), 
+\t:bar(1), 
+\t:baz(2), 
 )
 
 .EE
 .RE
 .PP
-An enum that exists to test enum pod declarators\&.
+An enum that exists to test enum pod declarators\\&.
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the module documentation";
+ok $roff.contains(qq:to/HERE/), "has the module documentation";
 .SS module TestModule
 
 .PP
-A module that exists to test module pod declarators\&.
+A module that exists to test module pod declarators\\&.
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the subset documentation";
+ok $roff.contains(qq:to/HERE/), "has the subset documentation";
 .SS subset test-subset
 
 .RS 4m
 .EX
-subset test\-subset of Str
+subset test\\-subset of Str
 .EE
 .RE
 .PP
-A subset that exists to test subset pod declarators\&.
+A subset that exists to test subset pod declarators\\&.
 HERE
 
-ok $roff.contains(q:to/HERE/), "has the package documentation";
+ok $roff.contains(qq:to/HERE/), "has the package documentation";
 .SS package TestPackage
 
 .PP
-A package that exists to test package pod declarators\&.
+A package that exists to test package pod declarators\\&.
 HERE
 
 done-testing;
+
+# vim: expandtab shiftwidth=4
