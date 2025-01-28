@@ -1,6 +1,7 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+    - Reverting back to the old way of indenting item blocks.
 
 1.2.0  2025-01-20T08:24:27-06:00
     - Modify attribute pod declarator formatting.
