@@ -159,7 +159,7 @@ multi method pod-node(Pod::Defn $pod) {
 
 multi method pod-node(Pod::Item $pod) {
     pfx "\n";
-    self.para-ctx: :shift($pod.level - 1), :nest(1), {
+    self.para-ctx: :shift(($pod.level - 1) || 1), :nest(1), {
         ".IP \\(bu 2m\n"
             ~ $pod.contents.map({ self.pod-node($_) }).join("\n.IP\n").chomp;
     }
