@@ -1,6 +1,8 @@
 Revision history for Pod-To-Man
 
 {{$NEXT}}
+
+1.2.1  2025-01-29T08:49:55-06:00
     - Fix nested item block indention.
 
 1.2.0  2025-01-20T08:24:27-06:00
